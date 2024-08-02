@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Responsive Sidebar</title>
+</head>
+
+<body>
+    <div class="addstocks">
+        <aside class="sidebar">
+            <div class="logo">P</div>
+            <nav class="navigation">
+                <a routerLink="/home/HomePage" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a routerLink="/dashboard/User-Page" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a routerLink="/view/stockPage" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stock</span>
+                </a>
+                <a routerLink="/add/add-stocks" class="nav-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add Stocks</span>
+                </a>
+                <a routerLink="/settings/settings_Page" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a routerLink="/login/login" class="nav-item">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Type to search..." />
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>Shashidhar R</span>
+                </div>
+            </header>
+            <div class="settings-page">
+                <h1>Settings</h1>
+
+                <div class="settings-section">
+                    <h2>Profile</h2>
+                    <form (ngSubmit)="onSubmitProfile()">
+                        <label for="username">Username</label>
+                        <input id="username" [(ngModel)]="profile.username" name="username" type="text" />
+
+                        <label for="email">Email</label>
+                        <input id="email" [(ngModel)]="profile.email" name="email" type="email" />
+
+                        <button type="submit">Save Profile</button>
+                    </form>
+                </div>
+                <div class="settings-section">
+                    <h2>Notification Preferences</h2>
+                    <form (ngSubmit)="onSubmitNotifications()">
+                        <label for="emailNotifications">Email Notifications</label>
+                        <input id="emailNotifications" [(ngModel)]="notifications.email" name="emailNotifications" type="checkbox" />
+
+                        <label for="smsNotifications">SMS Notifications</label>
+                        <input id="smsNotifications" [(ngModel)]="notifications.sms" name="smsNotifications" type="checkbox" />
+
+                        <button type="submit">Save Preferences</button>
+                    </form>
+                </div>
+
+                <div class="settings-section">
+                    <h2>API Keys</h2>
+                    <form (ngSubmit)="onSubmitApiKeys()">
+                        <label for="alphaVantageApiKey">Alpha Vantage API Key</label>
+                        <input id="alphaVantageApiKey" [(ngModel)]="apiKeys.alphaVantage" name="alphaVantageApiKey" type="text" />
+
+                        <button type="submit">Save API Keys</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

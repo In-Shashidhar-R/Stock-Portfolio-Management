@@ -1,0 +1,131 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<div class="stocks">
+    <aside class="sidebar">
+        <div class="logo">P</div>
+        <nav class="navigation">
+            <a routerLink="/home/HomePage" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a routerLink="/dashboard/User-Page" class="nav-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a routerLink="/view/stockPage" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Stock</span>
+            </a>
+            <a routerLink="/add/add-stocks" class="nav-item">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Stocks</span>
+            </a>
+            <a routerLink="/settings/settings_Page" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a routerLink="/login/login" class="nav-item">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Type to search..." />
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Shashidhar R</span>
+            </div>
+        </header>
+
+        <div class="stocks-container">
+            <mat-card>
+                <mat-card-content>
+                    <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Stock Name</mat-label>
+                            <mat-select formControlName="Stock_Name">
+                                <mat-option *ngFor="let name of stockNames" [value]="name">{{ name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <mat-form-field appearance="outline">
+                            <mat-label>Account Name</mat-label>
+                            <mat-select formControlName="Account_Name">
+                                <mat-option *ngFor="let name of accountNames" [value]="name">{{ name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button mat-raised-button color="primary" type="submit">Filter</button>
+                    </form>
+                    <br>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <!-- Columns definitions -->
+                        <ng-container matColumnDef="Account_Name">
+                            <th mat-header-cell *matHeaderCellDef> Account Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Acc_Name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Stock_Name">
+                            <th mat-header-cell *matHeaderCellDef> Stock Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.stock_Name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Quantity">
+                            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Quantity}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Price">
+                            <th mat-header-cell *matHeaderCellDef> Price </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Price}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Current_Price">
+                            <th mat-header-cell *matHeaderCellDef> Current Price </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Current_Price}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Amount_invested">
+                            <th mat-header-cell *matHeaderCellDef> Amount Invested </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.Amount_invested | number:'1.2-2' }} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="Current_Value">
+                            <th mat-header-cell *matHeaderCellDef> Current Value </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Current_Value | number:'1.2-2'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Profit_or_Loss">
+                            <th mat-header-cell *matHeaderCellDef> Profit or Loss </th>
+                            <td mat-cell *matCellDef="let element">
+                                <span [ngStyle]="{'color': element.Profit_or_Loss < 0 ? 'red' : 'green'}">
+                    {{ element.Profit_or_Loss | number:'1.2-2' }}
+                    <i [ngClass]="element.Profit_or_Loss < 0 ? 'fa-solid fa-arrow-down' : 'fa-solid fa-arrow-up'"></i>
+                  </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Delete">
+                            <th mat-header-cell *matHeaderCellDef> Delete </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-icon-button color="warn" (click)="deleteStock(element)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [length]="totalStocks" [pageSize]="pageSize" (page)="onPaginateChange($event)"></mat-paginator>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </main>
+</div>

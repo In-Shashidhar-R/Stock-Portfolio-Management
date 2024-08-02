@@ -1,0 +1,129 @@
+.stocks {
+    display: flex;
+    height: 100vh;
+    border-radius: 30px;
+    background-color: #f7f8fc;
+}
+
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.navigation {
+    margin-top: 160px;
+}
+
+.nav-item {
+    margin-top: 25px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.nav-item i {
+    min-width: 30px;
+    text-align: center;
+}
+
+.nav-item span {
+    margin-left: 20px;
+    display: none;
+}
+
+.sidebar:hover .nav-item span {
+    display: inline;
+}
+
+.sidebar:hover .nav-item {
+    padding: 10px;
+}
+
+.nav-item:hover {
+    background-color: #ffffff;
+    color: black;
+    border-radius: 30px 0 0 30px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 300px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.stocks-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.mat-card {
+    padding: 40px;
+}
+
+.mat-cell {
+    padding: 20px 30px 20px 30px;
+}
+
+.mat-header-cell {
+    padding: 20px 30px 20px 30px;
+}
+
+
+/* stocks.component.scss */
+
+.profit {
+    color: green;
+}
+
+.loss {
+    color: red;
+}

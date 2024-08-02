@@ -1,0 +1,71 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<div class="stocks">
+    <aside class="sidebar">
+        <div class="logo">P</div>
+        <nav class="navigation">
+            <a routerLink="/home/HomePage" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a routerLink="/dashboard/User-Page" class="nav-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a routerLink="/view/stockPage" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Stock</span>
+            </a>
+            <a routerLink="/add/add-stocks" class="nav-item">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Stocks</span>
+            </a>
+            <a routerLink="/settings/settings_Page" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a routerLink="/login/login" class="nav-item">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Type to search..." />
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Shashidhar R</span>
+            </div>
+        </header>
+
+        <div class="dashboard-box">
+            <mat-card>
+                <mat-card-content>
+                    <div class="container mt-5">
+                        <h2 class="mb-4">Account Investment Summary</h2>
+                        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                            <!-- Account Name Column -->
+                            <ng-container matColumnDef="Acc_Name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Account Name </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.acc_Name }} </mat-cell>
+                            </ng-container>
+
+                            <!-- Total Investment Amount Column -->
+                            <ng-container matColumnDef="Total_Investment">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Total Investment Amount </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Total_Investment | number:'1.2-2' }} </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </main>
+</div>

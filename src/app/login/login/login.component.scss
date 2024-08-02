@@ -1,0 +1,55 @@
+/* Background styling for the entire page */
+
+.login-background {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    /* Gradient background */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.login-card {
+    width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding: 40px;
+}
+
+mat-card-title {
+    margin-left: 100px;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+button.mat-raised-button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+}
+
+mat-icon {
+    color: #0072ff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
