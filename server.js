@@ -19,8 +19,8 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
     user: 'root',
-    password: 'Sashidhar@04',
-    database: 'portfolio'
+    password: 'Password',
+    database: 'Database_Name'
 });
 
 // Get Stocks Information
