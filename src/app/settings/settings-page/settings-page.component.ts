@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings-page',
@@ -7,49 +9,61 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent implements OnInit {
-  profile = {
-    username: '',
-    email: ''
-  };
+  userForm: FormGroup;
+  isEditing: boolean = false;
+  username: string = ''; // Store the username
 
-  notifications = {
-    email: false,
-    sms: false
-  };
-
-  apiKeys = {
-    alphaVantage: ''
-  };
-
-  constructor(private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+    this.userForm = this.fb.group({
+      username: [{ value: '', disabled: true }, Validators.required],
+      name: ['', Validators.required],
+      gender: ['Male', Validators.required],
+      address: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      age: ['', [Validators.required, Validators.min(0)]],
+      dob: ['', Validators.required],
+      contact_number: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
-    this.loadSettings();
+    this.username = localStorage.getItem('username') || 'Guest';
+    this.fetchUserData();
   }
 
-  loadSettings(): void {
-    this.http.get<any>('/api/settings').subscribe(data => {
-      this.profile = data.profile;
-      this.notifications = data.notifications;
-      this.apiKeys = data.apiKeys;
+  fetchUserData(): void {
+    this.http.get<any>(`http://localhost:3000/api/user/${this.username}`).subscribe(data => {
+      if (data.success) {
+        this.userForm.patchValue(data.user);
+      } else {
+        alert('User not found');
+      }
+    }, error => {
+      alert('Error fetching user data');
+      console.error(error);
     });
   }
 
-  onSubmitProfile(): void {
-    this.http.put('/api/settings/profile', this.profile).subscribe(response => {
-      console.log('Profile updated');
-    });
+  toggleEdit(): void {
+    this.isEditing = !this.isEditing;
+    if (!this.isEditing) {
+      this.fetchUserData();
+    }
   }
 
-  onSubmitNotifications(): void {
-    this.http.put('/api/settings/notifications', this.notifications).subscribe(response => {
-      console.log('Notifications updated');
-    });
-  }
-
-  onSubmitApiKeys(): void {
-    this.http.put('/api/settings/api-keys', this.apiKeys).subscribe(response => {
-      console.log('API Keys updated');
-    });
+  onUpdate(): void {
+    if (this.userForm.valid) {
+      this.http.put<any>(`http://localhost:3000/api/user/${this.username}`, this.userForm.value).subscribe(response => {
+        if (response.success) {
+          alert('User details updated successfully!');
+          this.isEditing = false; // Exit edit mode
+        } else {
+          alert('Failed to update user details.');
+        }
+      }, error => {
+        alert('Error updating user data');
+        console.error(error);
+      });
+    }
   }
 }

@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,55 +37,57 @@
             </nav>
         </aside>
         <main class="main-content">
-            <header class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Type to search..." />
-                </div>
-                <div class="user-info">
-                    <i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span>Shashidhar R</span>
-                </div>
-            </header>
-            <div class="settings-page">
-                <h1>Settings</h1>
+            <div class="user-profile">
+                <h2 style="text-align: center;">User Information</h2>
+                <hr>
+                <form [formGroup]="userForm" (ngSubmit)="onUpdate()">
+                    <div class="user-details">
+                        <div>
+                            <label for="username">Username:</label>
+                            <input id="username" formControlName="username" [disabled]="true" />
+                        </div>
+                        <div>
+                            <label for="name">Name:</label>
+                            <input id="name" formControlName="name" [disabled]="!isEditing" />
+                        </div>
+                        <div>
+                            <label for="gender">Gender:</label>
+                            <select id="gender" formControlName="gender" [disabled]="!isEditing">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                        </div>
+                        <div>
+                            <label for="address">Address:</label>
+                            <textarea id="address" formControlName="address" [disabled]="!isEditing"></textarea>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input id="email" formControlName="email" type="email" [disabled]="!isEditing" />
+                        </div>
+                        <div>
+                            <label for="age">Age:</label>
+                            <input id="age" formControlName="age" type="number" [disabled]="!isEditing" />
+                        </div>
+                        <div>
+                            <label for="dob">Date of Birth:</label>
+                            <input id="dob" formControlName="dob" type="date" [disabled]="!isEditing" />
+                        </div>
+                        <div>
+                            <label for="contact_number">Contact Number:</label>
+                            <input id="contact_number" formControlName="contact_number" type="text" [disabled]="!isEditing" />
+                        </div>
+                    </div>
 
-                <div class="settings-section">
-                    <h2>Profile</h2>
-                    <form (ngSubmit)="onSubmitProfile()">
-                        <label for="username">Username</label>
-                        <input id="username" [(ngModel)]="profile.username" name="username" type="text" />
-
-                        <label for="email">Email</label>
-                        <input id="email" [(ngModel)]="profile.email" name="email" type="email" />
-
-                        <button type="submit">Save Profile</button>
-                    </form>
-                </div>
-                <div class="settings-section">
-                    <h2>Notification Preferences</h2>
-                    <form (ngSubmit)="onSubmitNotifications()">
-                        <label for="emailNotifications">Email Notifications</label>
-                        <input id="emailNotifications" [(ngModel)]="notifications.email" name="emailNotifications" type="checkbox" />
-
-                        <label for="smsNotifications">SMS Notifications</label>
-                        <input id="smsNotifications" [(ngModel)]="notifications.sms" name="smsNotifications" type="checkbox" />
-
-                        <button type="submit">Save Preferences</button>
-                    </form>
-                </div>
-
-                <div class="settings-section">
-                    <h2>API Keys</h2>
-                    <form (ngSubmit)="onSubmitApiKeys()">
-                        <label for="alphaVantageApiKey">Alpha Vantage API Key</label>
-                        <input id="alphaVantageApiKey" [(ngModel)]="apiKeys.alphaVantage" name="alphaVantageApiKey" type="text" />
-
-                        <button type="submit">Save API Keys</button>
-                    </form>
-                </div>
+                    <!-- Centered Edit and Submit buttons -->
+                    <div class="buttons-container">
+                        <button type="button" (click)="toggleEdit()">{{ isEditing ? 'Cancel' : 'Edit' }}</button>
+                        <button type="submit" *ngIf="isEditing">Update</button>
+                    </div>
+                </form>
             </div>
+
         </main>
     </div>
 </body>
-
-</html>

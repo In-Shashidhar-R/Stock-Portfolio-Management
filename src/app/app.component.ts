@@ -9,7 +9,13 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'Portfolio-Management';
   constructor(private router: Router) {}  
+  
   ngOnInit(): void {
-    this.router.navigate(['settings/settings_Page']);  
+    const isFirstVisit = sessionStorage.getItem('isFirstVisit');
+
+    if (!isFirstVisit) {
+      this.router.navigate(['/load']); 
+      sessionStorage.setItem('isFirstVisit', 'true');
   }
+}
 }

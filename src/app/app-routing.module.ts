@@ -43,7 +43,8 @@ const routes: Routes = [
   {
     path:"load",
     component:LoadComponent
-  }
+  },
+  
 ];
 
 @NgModule({

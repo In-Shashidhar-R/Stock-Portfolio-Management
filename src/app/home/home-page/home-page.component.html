@@ -39,26 +39,37 @@
             </div>
             <div class="user-info">
                 <i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Shashidhar R</span>
+                <span>{{ username }}</span>
             </div>
         </header>
 
         <div class="dashboard-box">
             <mat-card>
                 <mat-card-content>
-                    <div class="container mt-5">
-                        <h2 class="mb-4">Account Investment Summary</h2>
+                    <div class="container mt-5" [@boxAnimationUp]>
+                        <h2 class="mb-4">&nbsp;&nbsp;Account Investment Summary</h2>
                         <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
                             <!-- Account Name Column -->
                             <ng-container matColumnDef="Acc_Name">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Account Name </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{ element.acc_Name }} </mat-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Acc_Name }} </mat-cell>
                             </ng-container>
 
                             <!-- Total Investment Amount Column -->
-                            <ng-container matColumnDef="Total_Investment">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Total Investment Amount </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{ element.Total_Investment | number:'1.2-2'}} </mat-cell>
+                            <ng-container matColumnDef="Amount_Invested">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Amount Invested </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Amount_Invested | currency:'INR':'symbol':'1.0-2' }} </mat-cell>
+                            </ng-container>
+
+                            <!-- Realized Profit Column -->
+                            <ng-container matColumnDef="Realized_Profit">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Realized Profit </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span [ngStyle]="{'color': element.Realized_Profit < 0 ? 'red' : 'green'}">
+                                        {{ element.Realized_Profit | currency:'INR':'symbol':'1.0-2' }}
+                                        <i [ngClass]="element.Realized_Profit < 0 ? 'fa-solid fa-arrow-down' : 'fa-solid fa-arrow-up'"></i>
+                                    </span>
+                                </mat-cell>
                             </ng-container>
 
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

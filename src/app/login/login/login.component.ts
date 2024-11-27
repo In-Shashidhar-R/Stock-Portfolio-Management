@@ -45,6 +45,10 @@ export class LoginComponent implements OnInit {
       this.http.post<any>('http://localhost:3000/api/login', this.loginForm.value).subscribe(
         (response) => {
           if (response.success) {
+            // Store the username in localStorage
+            localStorage.setItem('username', this.loginForm.value.username);
+
+            // Navigate to the dashboard
             this.router.navigate(['/dashboard/User-Page']);
           } else {
             alert('Invalid username or password');

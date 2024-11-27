@@ -23,7 +23,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class SignupPageComponent implements OnInit {
 
-    registerForm: FormGroup;
+  registerForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +37,6 @@ export class SignupPageComponent implements OnInit {
       gender: ['', Validators.required],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      age: ['', [Validators.required, Validators.min(1)]],
       dob: ['', Validators.required],
       contact_number: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]]
     });
@@ -47,6 +46,10 @@ export class SignupPageComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
+      const dob = new Date(this.registerForm.value.dob);
+      const age = this.calculateAge(dob);
+      this.registerForm.patchValue({ age }); // Update age in form data
+
       this.http.post<any>('http://localhost:3000/api/register', this.registerForm.value).subscribe(
         (response) => {
           if (response.success) {
@@ -61,5 +64,11 @@ export class SignupPageComponent implements OnInit {
         }
       );
     }
+  }
+
+  private calculateAge(dob: Date): number {
+    const diffMs = Date.now() - dob.getTime();
+    const ageDate = new Date(diffMs); // milliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 }

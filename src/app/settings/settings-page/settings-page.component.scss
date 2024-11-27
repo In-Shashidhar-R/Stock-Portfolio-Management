@@ -188,3 +188,83 @@ button {
 button:hover {
     background-color: #1e88e5;
 }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f8fc;
+}
+
+.user-profile {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 24px;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid #3498db;
+    margin: 10px 0 20px 0;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+.user-details {
+    margin-bottom: 20px;
+}
+
+.user-details div {
+    margin-bottom: 15px;
+}
+
+.user-details label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-details input {
+    border: none;
+    background-color: #f7f8fc;
+    font-size: 14px;
+    color: #555;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button[type="button"] {
+    margin-right: 10px;
+}
+
+input[disabled] {
+    background-color: transparent;
+    color: #555;
+}

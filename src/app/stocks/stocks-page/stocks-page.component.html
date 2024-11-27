@@ -40,11 +40,11 @@
             </div>
             <div class="user-info">
                 <i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Shashidhar R</span>
+                <span>{{ username }}</span>
             </div>
         </header>
 
-        <div class="stocks-container">
+        <div class="stocks-container" [@bounceDown]>
             <mat-card>
                 <mat-card-content>
                     <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
@@ -82,41 +82,49 @@
 
                         <ng-container matColumnDef="Price">
                             <th mat-header-cell *matHeaderCellDef> Price </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Price}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.Price | currency:'INR':'symbol':'1.0-2'}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="Current_Price">
                             <th mat-header-cell *matHeaderCellDef> Current Price </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Current_Price}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.Current_Price | currency:'INR':'symbol':'1.0-2'}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="Amount_invested">
                             <th mat-header-cell *matHeaderCellDef> Amount Invested </th>
-                            <td mat-cell *matCellDef="let element"> {{ element.Amount_invested | number:'1.2-2' }} </td>
+                            <td mat-cell *matCellDef="let element"> {{ element.Amount_invested | currency:'INR':'symbol':'1.0-2' }} </td>
                         </ng-container>
 
 
                         <ng-container matColumnDef="Current_Value">
                             <th mat-header-cell *matHeaderCellDef> Current Value </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Current_Value | number:'1.2-2'}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.Current_Value | currency:'INR':'symbol':'1.0-2'}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="Profit_or_Loss">
                             <th mat-header-cell *matHeaderCellDef> Profit or Loss </th>
                             <td mat-cell *matCellDef="let element">
                                 <span [ngStyle]="{'color': element.Profit_or_Loss < 0 ? 'red' : 'green'}">
-                    {{ element.Profit_or_Loss | number:'1.2-2' }}
+                    {{ element.Profit_or_Loss | currency:'INR':'symbol':'1.0-2' }}
                     <i [ngClass]="element.Profit_or_Loss < 0 ? 'fa-solid fa-arrow-down' : 'fa-solid fa-arrow-up'"></i>
                   </span>
                             </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="Delete">
-                            <th mat-header-cell *matHeaderCellDef> Delete </th>
+                        <ng-container matColumnDef="Actions">
+                            <th mat-header-cell *matHeaderCellDef> Sell &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Edit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Delete </th>
                             <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button color="warn" (click)="deleteStock(element)">
-                                    <mat-icon>delete</mat-icon>
-                                </button>
+                                <div class="action-buttons">
+                                    <button mat-icon-button color="warn" (click)="sellstock(element)">
+                                        <mat-icon>sell</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="editStock(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="deleteStock(element)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </td>
                         </ng-container>
 
@@ -125,6 +133,11 @@
                     </table>
                     <mat-paginator [length]="totalStocks" [pageSize]="pageSize" (page)="onPaginateChange($event)"></mat-paginator>
                 </mat-card-content>
+
+                <div style=" margin-top: 20px;" [ngStyle]="{'color': totalProfitOrLoss >= 0 ? 'green' : 'red'}">
+                    <strong>Total Profit / Loss: </strong> {{ totalProfitOrLoss | currency:'INR':'symbol':'1.0-2' }}
+                </div>
+
             </mat-card>
         </div>
     </main>

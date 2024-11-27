@@ -1,0 +1,26 @@
+<div class="edit-stock-container">
+    <mat-form-field>
+        <mat-label>Account Name</mat-label>
+        <input matInput [(ngModel)]="accountName" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Stock Name</mat-label>
+        <input matInput [(ngModel)]="stockName" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Updated Price</mat-label>
+        <input matInput [(ngModel)]="updatedPrice" type="number" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Updated Quantity</mat-label>
+        <input matInput [(ngModel)]="updatedQuantity" type="number" required>
+    </mat-form-field>
+
+    <div class="button-container">
+        <button class="cancel-button" mat-button (click)="onCancel()">Cancel</button>
+        <button mat-button (click)="update()">Update</button>
+    </div>
+</div>

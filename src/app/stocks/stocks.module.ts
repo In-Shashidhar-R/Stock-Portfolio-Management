@@ -13,12 +13,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator'; 
 import { MatIconModule } from '@angular/material/icon';
-
+import { EditStocksComponent } from './edit-stocks/edit-stocks.component';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
   declarations: [
-    StocksPageComponent
+    StocksPageComponent,
+    EditStocksComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +37,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatPaginatorModule,
     MatIconModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class StocksModule { }

@@ -38,31 +38,127 @@
             </div>
             <div class="user-info">
                 <i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Shashidhar R</span>
+                <span>{{ username }}</span>
             </div>
         </header>
-
         <div class="dashboard-box">
-            <mat-card>
+            <!-- First box: Account Investment Summary -->
+            <mat-card class="investment-summary-box">
                 <mat-card-content>
-                    <div class="container mt-5">
-                        <h2 class="mb-4">Account Investment Summary</h2>
+                    <div class="container mt-5" [@boxAnimationRight]>
+                        <h2 class="mb-4"> &nbsp;&nbsp; Account Investment Summary</h2>
                         <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
                             <!-- Account Name Column -->
                             <ng-container matColumnDef="Acc_Name">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Account Name </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{ element.acc_Name }} </mat-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Acc_Name }} </mat-cell>
                             </ng-container>
 
                             <!-- Total Investment Amount Column -->
-                            <ng-container matColumnDef="Total_Investment">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Total Investment Amount </mat-header-cell>
-                                <mat-cell *matCellDef="let element"> {{ element.Total_Investment | number:'1.2-2' }} </mat-cell>
+                            <ng-container matColumnDef="Amount_Invested">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Amount Invested </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Amount_Invested | currency:'INR':'symbol':'1.0-2' }} </mat-cell>
+                            </ng-container>
+
+                            <!-- Realized Profit Column -->
+                            <ng-container matColumnDef="Realized_Profit">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Realized Profit </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span [ngStyle]="{'color': element.Realized_Profit < 0 ? 'red' : 'green'}">
+                                        {{ element.Realized_Profit | currency:'INR':'symbol':'1.0-2' }}
+                                        <i [ngClass]="element.Realized_Profit < 0 ? 'fa-solid fa-arrow-down' : 'fa-solid fa-arrow-up'"></i>
+                                    </span>
+                                </mat-cell>
                             </ng-container>
 
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                         </mat-table>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Second box: Account Summary based on Filter -->
+            <mat-card class="filter-summary-box mt-5">
+                <mat-card-content>
+                    <h2 class="mb-4">Account Summary based on Filter</h2>
+                    <div class="filter-container" [@boxAnimationDown]>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select Account Names</mat-label>
+                            <mat-select [(ngModel)]="selectedAccounts" multiple>
+                                <mat-option *ngFor="let account of accountNames" [value]="account">{{ account }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>From Date</mat-label>
+                            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate">
+                            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #fromPicker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>To Date</mat-label>
+                            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate">
+                            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #toPicker></mat-datepicker>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" (click)="filterData()">Filter</button>
+                    </div>
+
+                    <div class="filtered-investment-summary mt-5" [@boxAnimationUp]>
+                        <h3>Filtered Investment Summary</h3>
+                        <mat-table matSort [dataSource]="filteredDataSource" class="mat-elevation-z8">
+                            <!-- Stock Name Column -->
+                            <ng-container matColumnDef="Acc_name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Account Name </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Acc_name }} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="stock_name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Stock Name </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.stock_name }} </mat-cell>
+                            </ng-container>
+
+                            <!-- Purchase Date Column -->
+                            <ng-container matColumnDef="date_purch">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Sold Date </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.date_purch | date:'shortDate' }} </mat-cell>
+                            </ng-container>
+
+                            <!-- Quantity Column -->
+                            <ng-container matColumnDef="Quantity">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> {{ element.Quantity }} </mat-cell>
+                            </ng-container>
+
+                            <!-- Profit Made Column -->
+                            <ng-container matColumnDef="profit_made">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Profit Made </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span [ngStyle]="{'color': element.profit_made < 0 ? 'red' : 'green'}">
+                                        {{ element.profit_made | currency:'INR':'symbol':'1.0-2' }}
+                                        <i [ngClass]="element.profit_made < 0 ? 'fa-solid fa-arrow-down' : 'fa-solid fa-arrow-up'"></i>
+                                    </span>
+                                </mat-cell>
+                            </ng-container>
+
+
+                            <mat-header-row *matHeaderRowDef="['Acc_name', 'stock_name', 'date_purch', 'Quantity', 'profit_made']"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: ['Acc_name','stock_name', 'date_purch', 'Quantity', 'profit_made'];"></mat-row>
+                        </mat-table>
+                        <div class="total-profit mt-4">
+                            <h4>
+                                Total Profit \ Loss:
+                                <span [ngStyle]="{'color': totalProfit < 0 ? 'red' : 'green'}">
+                                    {{ totalProfit | currency:'INR':'symbol':'1.0-2' }}
+                                    <span *ngIf="totalProfit >= 0">+</span>
+                                <span *ngIf="totalProfit < 0">-</span>
+                                </span>
+                            </h4>
+                        </div>
+
                     </div>
                 </mat-card-content>
             </mat-card>

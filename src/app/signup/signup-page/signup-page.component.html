@@ -36,10 +36,6 @@
                         <input matInput formControlName="email" required>
                     </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <mat-form-field appearance="outline">
-                        <mat-label>Age</mat-label>
-                        <input matInput type="number" formControlName="age" required>
-                    </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <mat-form-field appearance="outline">
                         <mat-label>Date of Birth</mat-label>
                         <input matInput type="date" formControlName="dob" required>
                     </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -47,9 +43,15 @@
                         <mat-label>Contact Number</mat-label>
                         <input matInput formControlName="contact_number" required>
                     </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+                    <div class="button-container">
+                        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+                        <button mat-raised-button color="primary" routerLink="/login/login">Login</button>
+                        <br>
+                        <br>
+                    </div>
                 </form>
             </mat-card-content>
         </mat-card>
     </div>
+
 </body>

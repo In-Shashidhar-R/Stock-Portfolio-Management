@@ -15,7 +15,7 @@ export class LoadComponent implements OnInit {
     cardio.register();
 
     setTimeout(() => {
-      this.router.navigate(['index']); // Replace '/next-page' with your target route
+      this.router.navigate(['index']); 
     }, 5000);
   }
 }

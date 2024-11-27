@@ -13,6 +13,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms'; // Needed for ngModel
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCardModule,
     MatSelectModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatNativeDateModule,
+    FormsModule,
+    MatDatepickerModule
   ]
 })
 export class DashboardModule { }

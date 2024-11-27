@@ -146,10 +146,97 @@ main {
     margin-right: 10px;
 }
 
+// .dashboard-box {
+//     background: #ffffff;
+//     /* Attractive background for the main content box */
+//     border-radius: 10px;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     padding: 20px;
+// }
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 30px 0;
+    /* Add space between items */
+}
+
+
+/* Smaller screens */
+
+@media screen and (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
+        /* Reduce padding */
+    }
+    mat-form-field {
+        width: 100%;
+        /* Make the form fields take up full width */
+    }
+    button {
+        width: 100%;
+        /* Make the filter button full-width on smaller screens */
+    }
+}
+
+
+/* Medium screens */
+
+@media screen and (max-width: 1024px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 0;
+    }
+    mat-form-field {
+        width: 100%;
+    }
+    button {
+        width: 100%;
+    }
+}
+
 .dashboard-box {
     background: #ffffff;
-    /* Attractive background for the main content box */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    /* Add gap between the two sections */
+}
+
+.investment-summary-box,
+.filter-summary-box {
+    padding: 20px;
+    background-color: $white-color;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.mat-elevation-z8 {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mt-5 {
+    margin-top: 40px;
+}
+
+.mt-4 {
+    margin-top: 20px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 30px 0px 30px 140px;
+}
+
+.filtered-investment-summary {
+    margin-top: 20px;
 }
